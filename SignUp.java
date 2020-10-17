@@ -1,42 +1,37 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package sign.up;
+class check {
+    String nama;
+    String email;
+    String pass;
+    String emailterdaftar = "wafiyul@gmail.com";
+    String namaterdaftar = "wafi";
 
-/**
- *
- * @author M WAFIYUL AHDI
- */
-import java.util.Scanner;
+    check(String inputnama, String inputemail, String inputpass) {
+        nama = inputnama;
+        email = inputemail;
+        pass = inputpass;
+    }
+    
+    public String cekdata (){
+        if (email.equals(emailterdaftar)) {
+         System.out.println("maaf, email sudah terdaftar");
+       }else if (nama.equals(namaterdaftar)) {
+         System.out.println("maaf, nama sudah terdaftar");
+       }else if (pass.length() < 8) {
+            System.out.println("maaf, pasword minimal 8 karakter");
+        }else{
+        System.out.println("Selamat "+nama+",anda berhasil mendaftar dengan email "+email+" dan password "+pass);
+       }
+        return nama;
+        
+    }
+}
 
 public class SignUp {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
-
-        String emailTerdaftar = "abcd@gmail.com";
-        String namaTerdaftar = "wafi";
-        String PWTerdaftar = "tariksis";
-
-        Scanner q = new Scanner(System.in);
-        String inputEmail = q.nextLine();
-        String inputNama = q.nextLine();
-        String inputPW = q.nextLine();
-
-        if (inputEmail.equals(emailTerdaftar)) {
-            System.out.println("maaf, email sudah terdaftar");
-        } else if (inputNama.equals(namaTerdaftar)) {
-            System.out.println("maaf, nama ini sudah digunakan");
-        } else if (inputPW.length() < 8) {
-            System.out.println("maaf, pasword minimal 8 karakter");
-        } else {
-            System.out.println("selamat, anda berhasil mendaftar");
-        }
-
+        
+        check cek = new check("izam","izam@gmail.com","izam123456");
+        cek.cekdata();
     }
 }
