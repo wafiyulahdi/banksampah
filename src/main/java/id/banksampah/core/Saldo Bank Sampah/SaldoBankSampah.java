@@ -1,11 +1,16 @@
 import java.util.*;
 
-class saldoUtama {
+class nasabah {
 	protected String nama;
-	protected int idNasabah;
-	protected int uang = 10000;
+	protected String idNasabah;
 
-	
+	nasabah(String inNama, String inIdNasabah) {
+		inNama = nama;
+		inIdNasabah = idNasabah;
+	}
+}
+class saldoUtama {
+	protected int uang = 10000;
 }
 
 class saldoAwal extends saldoUtama {
@@ -24,6 +29,8 @@ class tambahSaldo extends saldoUtama {
 public class SaldoBankSampah {
 	public static void main (String [] args) {
 
+		nasabah cust1 = new nasabah(" Diana", "H96219058" );
+
 		saldoUtama saldo1 = new saldoUtama();
 		saldoAwal saldoAwal1 = new saldoAwal();
 		tambahSaldo tambahSaldo1 = new tambahSaldo();
@@ -37,7 +44,10 @@ public class SaldoBankSampah {
 				/*System.out.println("|			3. Saldo Total 				|");*/
 				/*System.out.println("|			4. Ambil Saldo 				|");*/
 				System.out.println("-----------------------------------------");
-				System.out.print("Masukkan pilihan anda : ");
+
+				System.out.print("Username : " + cust1.nama + " \nId Nasabah : " + cust1.idNasabah);
+
+				System.out.print("\nMasukkan pilihan anda : ");
 				int jawab = in.nextInt();
 				switch (jawab){
 				case 1:
