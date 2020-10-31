@@ -1,7 +1,6 @@
 # banksampah
 
-<<<<<<< HEAD
-=======
+
 ## Anggota
 
 - [Moh. Wafiyul Ahdi](https://github.com/wafiyulahdi/banksampah/tree/wafiyul) (Wafi)
@@ -17,4 +16,4 @@
 - Lokasi [**Irvan**]
 - Setor [**Syahrul**]
 - SigIn [**Iqbal**]
->>>>>>> 1b5e9c2b23da67c17cc4edfda02f4013f22b0cd0
+
