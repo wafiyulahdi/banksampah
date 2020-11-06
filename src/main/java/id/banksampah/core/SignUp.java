@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-class signup {
+class user {
 
     protected String nama;
     protected String email;
     protected String pass;
 
-    signup(String inputnama, String inputemail, String inputpass) {
+    user(String inputnama, String inputemail, String inputpass) {
         this.nama = inputnama;
         this.email = inputemail;
         this.pass = inputpass;
@@ -14,7 +14,7 @@ class signup {
 
 }
 
-class nasabah extends signup {
+class nasabah extends user {
 
     String emailnasabahterdaftar = "nasabah@gmail.com";
     String namanasabahterdaftar = "nasabah";
@@ -25,7 +25,7 @@ class nasabah extends signup {
 
 }
 
-class pengepul extends signup {
+class pengepul extends user {
 
     protected String alamat;
     protected String emailpengepulterdaftar = "pengepul@gmail.com";
@@ -43,7 +43,7 @@ class pengepul extends signup {
  *
  * @author M WAFIYUL AHDI
  */
-public class SignUp {
+public class user {
 
     /**
      * @param args the command line arguments
@@ -51,7 +51,7 @@ public class SignUp {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("================");
-        System.out.println("Pilih Signup sebagai ");
+        System.out.println("Pilih user sebagai ");
         System.out.println("===============");
         System.out.println("Pilihan Menu : ");
         System.out.println("1. Nasabah");
