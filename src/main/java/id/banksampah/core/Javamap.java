@@ -5,7 +5,7 @@
  */
 package javamap;
 import java.util.Scanner;
-
+import java.util.Date;
 /**
  *
  * @author nuriv
@@ -44,20 +44,20 @@ public class Javamap {
                 System.out.print("\n" + nama + "ANDA SALAH MEMASUKKAN ");
                 break;
                 
-
             }
         }
-    /**
+    /**x  
      * @param args the command line arguments
      */
     public static void main(String[] args) {
       Scanner in= new Scanner(System.in);
-       
+
+       Date date = new Date();
        Javamap map= new Javamap();
            System.out.println("Masukkan Nama Anda : ");
            map.setNama(in.nextLine());
            
-           System.out.println("pilihan:\n 1.lamongan  \n 2.Sidoarjo \n 3.Surabaya \n 4.Gresik \n 5.Bojonegoro \n\n   Masukkan Pilihan Anda: ");
+           System.out.println("Hari ini "+date.toString()+"\n pilihan:\n 1.lamongan  \n 2.Sidoarjo \n 3.Surabaya \n 4.Gresik \n 5.Bojonegoro \n\n   Masukkan Pilihan Anda: ");
            map.setPilihan(in.nextInt());
            
            map.handle();
