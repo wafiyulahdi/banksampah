@@ -40,6 +40,11 @@ public class Javamap {
             case 5:
                 System.out.print("\n" + nama + "Memilih lokasi Bojonegoro");
                 break;
+                default:
+                System.out.print("\n" + nama + "ANDA SALAH MEMASUKKAN ");
+                break;
+                
+
             }
         }
     /**
@@ -56,6 +61,7 @@ public class Javamap {
            map.setPilihan(in.nextInt());
            
            map.handle();
+
        
     }
     
