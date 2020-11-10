@@ -1,10 +1,16 @@
 import java.util.Scanner;
 
-class user {
+interface model{
+  protected void save();
+  }  
+
+abstract class user implements model{
 
     protected String nama;
     protected String email;
     protected String pass;
+    protected void save(){
+    }
 
     user(String inputnama, String inputemail, String inputpass) {
         this.nama = inputnama;
