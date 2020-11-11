@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 interface model{
-  protected void save();
+    void save();
   }  
 
 abstract class user implements model{
@@ -10,8 +10,9 @@ abstract class user implements model{
     protected String email;
     protected String pass;
     
-    protected void save(){
-        Sytem.out.printlin("data anda telah disimpan");
+    @Override
+    public void save(){
+        System.out.println("data anda telah disimpan");
     }
 
     user(String inputnama, String inputemail, String inputpass) {
@@ -36,12 +37,15 @@ class nasabah extends user {
 class pengepul extends user {
 
     protected String alamat;
+    protected String telp;
     protected String emailpengepulterdaftar = "pengepul@gmail.com";
     protected String namapengepulterdaftar = "pengepul";
+    protected String nomorpengepulterdaftar = "082140799829";
 
-    pengepul(String inputnama, String inputemail, String inputpass, String inputalamat) {
+    pengepul(String inputnama, String inputemail, String inputpass, String inputalamat, String inputtelp) {
         super(inputnama, inputemail, inputpass);
         this.alamat = inputalamat;
+        this.telp = inputtelp;
 
     }
 
@@ -102,14 +106,18 @@ public class user {
             String pass = input.nextLine();
             System.out.print("Masukan alamat    : ");
             String alamat = input.nextLine();
+            System.out.print("Masukan nomor telepon    : ");
+            String telp = input.nextLine();
 
-            pengepul p = new pengepul(nama, email, pass, alamat);
+            pengepul p = new pengepul(nama, email, pass, alamat, telp);
 
             if (p.email.equals(p.emailpengepulterdaftar)) {
                 System.out.println("maaf, email sudah terdaftar");
             } else if (p.nama.equals(p.namapengepulterdaftar)) {
                 System.out.println("maaf, nama sudah terdaftar");
-            } else if (p.pass.length() < 8) {
+            } else if (p.telp.equals(p.nomorpengepulterdaftar)) {
+                System.out.println("maaf, nomor sudah terdaftar");
+            }else if (p.pass.length() < 8) {
                 System.out.println("maaf, pasword minimal 8 karakter");
             } else {
                 System.out.println("Selamat " + p.nama + ",anda berhasil mendaftar sebagai pengepul dengan email " + p.email + " dan password " + p.pass + " dan beralamat di " + p.alamat);
