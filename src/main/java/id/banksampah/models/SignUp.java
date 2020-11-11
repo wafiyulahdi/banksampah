@@ -9,7 +9,9 @@ abstract class user implements model{
     protected String nama;
     protected String email;
     protected String pass;
+    
     protected void save(){
+        Sytem.out.printlin("data anda telah disimpan");
     }
 
     user(String inputnama, String inputemail, String inputpass) {
@@ -87,6 +89,7 @@ public class user {
                 System.out.println("maaf, pasword minimal 8 karakter");
             } else {
                 System.out.println("Selamat " + n.nama + ",anda berhasil mendaftar sebagai nasabah dengan email " + n.email + " dan password " + n.pass);
+                n.save();
             }
 
         } else if (pilih == 2) {
@@ -110,6 +113,7 @@ public class user {
                 System.out.println("maaf, pasword minimal 8 karakter");
             } else {
                 System.out.println("Selamat " + p.nama + ",anda berhasil mendaftar sebagai pengepul dengan email " + p.email + " dan password " + p.pass + " dan beralamat di " + p.alamat);
+                p.save();
             }
 
         } else {
