@@ -10,7 +10,6 @@ abstract class user implements model{
     protected String email;
     protected String pass;
     
-    @Override
     public void save(){
         System.out.println("data anda telah disimpan");
     }
