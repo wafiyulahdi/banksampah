@@ -1,12 +1,20 @@
 import java.util.Scanner;
 
-class signup {
+interface model{
+    void save();
+  }  
+
+abstract class user implements model{
 
     protected String nama;
     protected String email;
     protected String pass;
+    
+    public void save(){
+        System.out.println("data anda telah disimpan");
+    }
 
-    signup(String inputnama, String inputemail, String inputpass) {
+    user(String inputnama, String inputemail, String inputpass) {
         this.nama = inputnama;
         this.email = inputemail;
         this.pass = inputpass;
@@ -14,7 +22,7 @@ class signup {
 
 }
 
-class nasabah extends signup {
+class nasabah extends user {
 
     String emailnasabahterdaftar = "nasabah@gmail.com";
     String namanasabahterdaftar = "nasabah";
@@ -25,15 +33,18 @@ class nasabah extends signup {
 
 }
 
-class pengepul extends signup {
+class pengepul extends user {
 
     protected String alamat;
+    protected String telp;
     protected String emailpengepulterdaftar = "pengepul@gmail.com";
     protected String namapengepulterdaftar = "pengepul";
+    protected String nomorpengepulterdaftar = "082140799829";
 
-    pengepul(String inputnama, String inputemail, String inputpass, String inputalamat) {
+    pengepul(String inputnama, String inputemail, String inputpass, String inputalamat, String inputtelp) {
         super(inputnama, inputemail, inputpass);
         this.alamat = inputalamat;
+        this.telp = inputtelp;
 
     }
 
@@ -43,7 +54,7 @@ class pengepul extends signup {
  *
  * @author M WAFIYUL AHDI
  */
-public class SignUp {
+public class user {
 
     /**
      * @param args the command line arguments
@@ -51,7 +62,7 @@ public class SignUp {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("================");
-        System.out.println("Pilih Signup sebagai ");
+        System.out.println("Pilih user sebagai ");
         System.out.println("===============");
         System.out.println("Pilihan Menu : ");
         System.out.println("1. Nasabah");
@@ -81,6 +92,7 @@ public class SignUp {
                 System.out.println("maaf, pasword minimal 8 karakter");
             } else {
                 System.out.println("Selamat " + n.nama + ",anda berhasil mendaftar sebagai nasabah dengan email " + n.email + " dan password " + n.pass);
+                n.save();
             }
 
         } else if (pilih == 2) {
@@ -93,17 +105,22 @@ public class SignUp {
             String pass = input.nextLine();
             System.out.print("Masukan alamat    : ");
             String alamat = input.nextLine();
+            System.out.print("Masukan nomor telepon    : ");
+            String telp = input.nextLine();
 
-            pengepul p = new pengepul(nama, email, pass, alamat);
+            pengepul p = new pengepul(nama, email, pass, alamat, telp);
 
             if (p.email.equals(p.emailpengepulterdaftar)) {
                 System.out.println("maaf, email sudah terdaftar");
             } else if (p.nama.equals(p.namapengepulterdaftar)) {
                 System.out.println("maaf, nama sudah terdaftar");
-            } else if (p.pass.length() < 8) {
+            } else if (p.telp.equals(p.nomorpengepulterdaftar)) {
+                System.out.println("maaf, nomor sudah terdaftar");
+            }else if (p.pass.length() < 8) {
                 System.out.println("maaf, pasword minimal 8 karakter");
             } else {
                 System.out.println("Selamat " + p.nama + ",anda berhasil mendaftar sebagai pengepul dengan email " + p.email + " dan password " + p.pass + " dan beralamat di " + p.alamat);
+                p.save();
             }
 
         } else {
