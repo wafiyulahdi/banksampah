@@ -34,7 +34,7 @@ public class Setor {
         return jmlSetoran;
     }
     
-    public void setJmlPenarikan() {
+    public void setJmlPenarikan(int jmlSetoran) {
         this.jmlSetoran = jmlSetoran;
     }
 }

@@ -34,7 +34,7 @@ public class Penarikan {
         return jmlPenarikan;
     }
     
-    public void setJmlPenarikan() {
+    public void setJmlPenarikan(int jmlPenarikan) {
         this.jmlPenarikan = jmlPenarikan;
     }
 }
