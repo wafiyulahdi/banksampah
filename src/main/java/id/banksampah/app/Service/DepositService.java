@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package saldo.service;
+package id.banksampah.app.service;
 
 /**
  *
  * @author Asus
  */
-public class WithdrawService {
+public class DepositService {
     
 }

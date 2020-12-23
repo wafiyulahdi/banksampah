@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package saldo.core;
+package id.banksampah.app.core;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.Statement;
