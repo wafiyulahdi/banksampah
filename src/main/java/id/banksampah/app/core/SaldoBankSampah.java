@@ -1,14 +1,16 @@
 import java.util.*;
+import java.util.Date;
 
-class nasabah {
+class nasabah{
 	protected String nama;
 	protected String idNasabah;
 
-	nasabah(String inNama, String inIdNasabah) {
-		inNama = nama;
-		inIdNasabah = idNasabah;
+	nasabah(String inputNama, String inputIdNasabah){
+		nama = inputNama; 
+		idNasabah = inputIdNasabah;	
 	}
 }
+
 class saldoUtama {
 	protected int uang = 10000;
 }
@@ -29,7 +31,8 @@ class tambahSaldo extends saldoUtama {
 public class SaldoBankSampah {
 	public static void main (String [] args) {
 
-		nasabah cust1 = new nasabah(" Diana", "H96219058" );
+		nasabah cust1 = new nasabah("Diana", "H96219058");
+		Date date = new Date();
 
 		saldoUtama saldo1 = new saldoUtama();
 		saldoAwal saldoAwal1 = new saldoAwal();
@@ -45,7 +48,7 @@ public class SaldoBankSampah {
 				/*System.out.println("|			4. Ambil Saldo 				|");*/
 				System.out.println("-----------------------------------------");
 
-				System.out.print("Username : " + cust1.nama + " \nId Nasabah : " + cust1.idNasabah);
+				System.out.print("Username 	: " + cust1.nama + " \nId Nasabah  : " + cust1.idNasabah + "\nWaktu		: " + date.toString());
 
 				System.out.print("\nMasukkan pilihan anda : ");
 				int jawab = in.nextInt();
