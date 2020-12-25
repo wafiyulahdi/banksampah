@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.banksampah.app.core.config;
+package id.banksampah.core.config;
 
 import id.banksampah.app.core.config.ConfigurationDatabase;
 import java.sql.DriverManager;
