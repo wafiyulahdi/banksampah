@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.banksampah.core.config;
+package id.banksampah.app.core.config;
 
 import id.banksampah.app.core.config.MySQL;
 import java.sql.Connection;
