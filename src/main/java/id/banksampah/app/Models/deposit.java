@@ -9,7 +9,7 @@ package id.banksampah.app.model;
  *
  * @author Asus
  */
-public class deposit {
+public class Deposit {
     public String IdCustomer;
     public String name;
     public int totalDeposit;
