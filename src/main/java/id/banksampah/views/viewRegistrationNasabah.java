@@ -6,12 +6,17 @@
 package id.banksampah.app.view;
 
 import id.banksampah.app.core.AccountImpNasabah;
+import id.banksampah.app.core.config.MySQL;
 import id.banksampah.app.model.Nasabah;
-import id.banksampah.app.service.AccountServiceNasabah;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,7 +34,7 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
     private JButton registrasi = new JButton("Daftar");
     private JButton pengepul = new JButton("Pengepul");
 
-    private String nama, email, pass;
+    protected String nama, email, pass;
     Nasabah nasabah;
 
     // membuat fungsi 
@@ -37,9 +42,8 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
         super("Form Registrasi");
         // instansiasi jpanel menggunakan gridbaglayout untuk memudahkan tata letak komponen
         initView();
+        regis();
         toPengepul();
-        
-        
 
     }
 
@@ -94,11 +98,11 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
         setLocationRelativeTo(null);// mengatur lokasi frame di tengah layar
 
     }
-    
+
     private void regis() {
         registrasi.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {
+            public void actionPerformed(ActionEvent e) {
                 nama = textNama.getText().toString();
                 email = textEmail.getText().toString();
                 pass = textPass.getText().toString();
@@ -108,17 +112,20 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
                     nasabah.setNama(nama);
                     nasabah.setEmail(email);
                     nasabah.setPass(pass);
-
                     try {
+                        if (!checkAccountNasabah(email)) {
+                            functionInsert(nasabah);
+                            JOptionPane.showMessageDialog(null, "Registrasi Berhasil");
+                        } else
+                            JOptionPane.showMessageDialog(null, "email sudah digunakan");
 
-                        functionInsert(nasabah);
                     } catch (Exception exception) {
                         exception.printStackTrace();
                     }
                 }
             }
-
-        });
+        }
+        );
     }
 
     private void toPengepul() {
@@ -128,36 +135,50 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
                 viewRegistrationPengepul xx;
                 xx = new viewRegistrationPengepul();
                 xx.setVisible(true);
-
+                setVisible(false);
             }
 
         });
 
-    }
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        SwingUtilities.invokeLater(new Runnable() { //untuk menjalankan kode dan  memungkinkan Anda memodifikasi GUI dari utas lain.
-            @Override
-            public void run() {
-                new viewRegistrationNasabah().setVisible(true);
-            }
-        });
     }
 
     @Override
     public boolean checkAccountNasabah(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = " SELECT * FROM nasabah WHERE email = ?";
+        Connection connection = new MySQL().createConnection();
+        try {
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, email);
+
+            ResultSet result = preparedStmt.executeQuery();
+            
+            if (result.next()) {
+                return true;
+            }
+            
+            return false;            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRegistrationNasabah.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
     public boolean functionInsert(Nasabah nasabah) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        try {
+            String query = " INSERT INTO `nasabah`(`nama`, `email`, `password`) VALUES (?,?,?)";
+            Connection connection = new MySQL().createConnection();
 
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, nasabah.getNama());
+            preparedStmt.setString(2, nasabah.getEmail());
+            preparedStmt.setString(3, nasabah.getPass());
+            preparedStmt.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRegistrationNasabah.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }

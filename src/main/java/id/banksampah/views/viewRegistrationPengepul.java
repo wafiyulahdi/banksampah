@@ -5,18 +5,25 @@
  */
 package id.banksampah.app.view;
 
-import id.banksampah.app.model.Nasabah;
 import id.banksampah.app.core.config.MySQL;
-import id.banksampah.app.core.AccountImpNasabah;
+import id.banksampah.app.core.AccountImpPengepul;
 import id.banksampah.app.model.Pengepul;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author M WAFIYUL AHDI
  */
-public class viewRegistrationPengepul extends JFrame {
+public class viewRegistrationPengepul extends JFrame implements AccountImpPengepul {
 
     private JLabel labelNama = new JLabel("Enter username: ");
     private JLabel labelEmail = new JLabel("Enter Email: ");
@@ -30,10 +37,15 @@ public class viewRegistrationPengepul extends JFrame {
     private JTextField textPass = new JTextField(20);
     private JButton registrasi = new JButton("Daftar");
 
+    protected String nama, email, telp, alamat, pass;
+    Pengepul pengepul;
+
     public viewRegistrationPengepul() {
         super("Form Registrasi");
 
         initView();
+        regis();
+
     }
 
     private void initView() {
@@ -96,19 +108,77 @@ public class viewRegistrationPengepul extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+    private void regis() {
+        registrasi.addActionListener(new ActionListener() {
             @Override
-            public void run() {
-                new viewRegistrationPengepul().setVisible(true);
+            public void actionPerformed(ActionEvent e) {
+                nama = textNama.getText().toString();
+                email = textEmail.getText().toString();
+                telp = textTelp.getText().toString();
+                alamat = textAlamat.getText().toString();
+                pass = textPass.getText().toString();
+
+                if (!nama.equals("") && !email.equals("") && !pass.equals("")) {
+                    pengepul = new Pengepul();
+                    pengepul.setNama(nama);
+                    pengepul.setEmail(email);
+                    pengepul.setTelp(telp);
+                    pengepul.setAlamat(alamat);
+                    pengepul.setPass(pass);
+                    try {
+                         if (!checkAccountPengepul(email)) {
+                            functionInsert(pengepul);
+                            JOptionPane.showMessageDialog(null, "Registrasi Berhasil");
+                        } else
+                            JOptionPane.showMessageDialog(null, "email sudah digunakan");
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+                }
             }
-        });
+        }
+        );
+    }
+
+    @Override
+    public boolean checkAccountPengepul(String email) {
+        String query = " SELECT * FROM pengepul WHERE email = ?";
+        Connection connection = new MySQL().createConnection();
+        try {
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, email);
+            ResultSet result = preparedStmt.executeQuery();
+            
+            if (result.next()) {
+                return true;
+            }
+            
+            return false;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRegistrationNasabah.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean functionInsert(Pengepul pengepul) {
+        try {
+            String query = " INSERT INTO `pengepul`(`nama`, `email`, `telp`, `alamat`, `password`) VALUES (?,?,?,?,?)";
+            Connection connection = new MySQL().createConnection();
+
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, pengepul.getNama());
+            preparedStmt.setString(2, pengepul.getEmail());
+            preparedStmt.setString(3, pengepul.getTelp());
+            preparedStmt.setString(4, pengepul.getAlamat());
+            preparedStmt.setString(5, pengepul.getPass());
+            preparedStmt.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(viewRegistrationNasabah.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
 }
