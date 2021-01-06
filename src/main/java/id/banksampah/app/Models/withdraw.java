@@ -9,7 +9,7 @@ package id.banksampah.app.model;
  *
  * @author Asus
  */
-public class withdraw {
+public class Withdraw {
     public String IdCustomer;
     public String name;
     public int totalWithdraw;
