@@ -14,7 +14,7 @@ public class ConfigurationDatabase {
     private String HOSTNAME = "127.0.0.1";
     private String USERNAME = "root";
     private String PASSWORD = "";
-    private String DBNAME = "banksampah2";
+    private String DBNAME = "banksampah";
     private int PORT = 3306;
 
     public String getJdbcDatabaseUrl() { // mengkoneksi kepada mysql dengan return url
