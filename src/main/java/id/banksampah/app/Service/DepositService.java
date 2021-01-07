@@ -47,12 +47,18 @@ public class DepositService extends Service implements DepositImp{
 
     @Override
     public boolean functionInsert(Deposit deposit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "INSERT INTO `deposit` (`IdCustomer`, `nama`, 'totalDeposit') VALUES ('%d', '%s', '%d')";// querry yang akan dieksekusi
+        sql = String.format(sql, deposit.getIdCustomer(), deposit.getName(), deposit.getTotalDeposit()); // mengambil nilai dari variable
+
+        try {
+            Statement stmt = this.connection.createStatement();
+            stmt.execute(sql); // eksekusi querry
+            this.connection.close(); // apabila eksekusi selesai maka koneksi ditutup 
+
+            return true;
+        } catch (Exception e) { // pesan error saat fungsi insert gagal dilakukan
+            System.out.println(e);
+            return false;
+        } 
     }    
-
-    private class connection {
-
-        public connection() {
-        }
-    }
 }
