@@ -5,10 +5,15 @@
  */
 package id.banksampah.app.view;
 
+import id.banksampah.app.model.Deposit;
+import id.banksampah.app.model.Withdraw;
 import id.banksampah.app.view.ViewDeposit;
 import id.banksampah.app.view.ViewWithdraw;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -17,42 +22,59 @@ import java.sql.PreparedStatement;
  *
  * @author Asus
  */
-public class ViewSaldo {
+public class ViewSaldo extends JFrame {
     private JLabel LabelCome = new JLabel("Welcome in Saldo Bank Sampah ");
-    private JLabel LabelIdCust = new JLabel("Id Customer ");
-    private JLabel LabelName = new JLabel("Name :");
-    private JLabel LabelTtlWithdraw = new JLabel("Total Withdraw : ");
-    private JLabel LabelTtlDeposit = new JLabel("Total Deposit : ");
     private JButton btnWithdraw = new JButton("Withdraw");
     private JButton btnDeposit = new JButton("Deposit");
-    private JTextField jtfName = new JTextField(30);
-    private JTextField jtfIdCust = new JTextField(6);
-    private JTextField jtfTtlWithdraw = new JTextField(30);
-    private JTextField jtfTtlDeposit = new JTextField(30);
-    
+
     public ViewSaldo() {
         initView();
+        doDeposit();
+        doWithdraw();
     }
     
     private void initView() {
-        JFrame base = new JFrame();
-        
-        btnWithdraw.setBounds(45,130,130,90); 
-        btnDeposit.setBounds(220,130,130,90); 
-        LabelCome.setBounds(90, 50, 300, 30);
+        JFrame base = new JFrame();   
+        LabelCome.setBounds(130, 40, 300, 30);
+        btnWithdraw.setBounds(45,100,130,90); 
+        btnDeposit.setBounds(220,100,130,90); 
         
         base.add(btnWithdraw);
         base.add(btnDeposit);
         base.add(LabelCome);
         
         base.setTitle("Saldo Bank Sampah");
-        base.setSize(400,300);
+        base.setSize(400,250);
         base.setLayout(null);
         base.setVisible(true);
         base.setResizable(false);
         base.setLocationRelativeTo(null);
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    
-    
+
+    private void doDeposit() {
+        btnDeposit.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                ViewDeposit deposit;
+                deposit = new ViewDeposit(); 
+                deposit.setVisible(true);
+                setVisible(false); 
+                }
+            }
+        );
+    }
+
+    private void doWithdraw() {
+        btnWithdraw.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                ViewWithdraw xx;
+                xx = new ViewWithdraw(); 
+                xx.setVisible(true);
+                setVisible(false);
+                }
+            }
+        );
+    }    
 }
