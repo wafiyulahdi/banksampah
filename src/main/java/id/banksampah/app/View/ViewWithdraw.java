@@ -30,6 +30,7 @@ public class ViewWithdraw extends JFrame implements WithdrawImp {
     private JLabel LabelName = new JLabel("Name                  :");
     private JLabel LabelTtlWithdraw = new JLabel("Total Withdraw   : ");
     private JButton btnWithdraw = new JButton("Withdraw");
+    private JButton btnBack = new JButton("Back");
     private JTextField jtfName = new JTextField(30);
     private JTextField jtfIdCust = new JTextField(6);
     private JTextField jtfTtlWithdraw = new JTextField(30);
@@ -41,12 +42,14 @@ public class ViewWithdraw extends JFrame implements WithdrawImp {
     public ViewWithdraw() {
         initView();
         doWithdraw();
+        Back();
     }
     
     private void initView() {
         JFrame base1 = new JFrame();
         
-        btnWithdraw.setBounds(100,150,200,50);    
+        btnBack.setBounds(70,150,110,40);
+        btnWithdraw.setBounds(210,150,110,40);    
         LabelIdCust.setBounds(50,50,100,10);
         LabelName.setBounds(50,80,100,10);
         LabelTtlWithdraw.setBounds(50,110,100,10);
@@ -54,6 +57,7 @@ public class ViewWithdraw extends JFrame implements WithdrawImp {
         jtfName.setBounds(150,75,200,20);
         jtfTtlWithdraw.setBounds(150,105,200,20);
         
+        base1.add(btnBack);        
         base1.add(btnWithdraw);
         base1.add(LabelName);
         base1.add(LabelIdCust);
@@ -130,5 +134,18 @@ public class ViewWithdraw extends JFrame implements WithdrawImp {
             Logger.getLogger(ViewWithdraw.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+
+    private void Back() {
+        btnBack.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                ViewSaldo saldo;
+                saldo = new ViewSaldo(); 
+                saldo.setVisible(true);
+                setVisible(false); 
+                }
+            }
+        );
     }
 }

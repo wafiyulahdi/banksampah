@@ -32,6 +32,7 @@ public class ViewDeposit extends JFrame implements DepositImp{
     private JLabel LabelName = new JLabel("Name             :");
     private JLabel LabelTtlDeposit = new JLabel("Total Deposit : ");
     private JButton btnDeposit = new JButton("Deposit");
+    private JButton btnBack = new JButton("Back");
     private JTextField jtfName = new JTextField(30);
     private JTextField jtfIdCust = new JTextField(6);
     private JTextField jtfTtlDeposit = new JTextField(30);
@@ -43,12 +44,14 @@ public class ViewDeposit extends JFrame implements DepositImp{
     public ViewDeposit() {
         initView();
         Deposit();
+        Back();
     }
     
     private void initView() {
         JFrame base2 = new JFrame();
-        
-        btnDeposit.setBounds(100,150,200,50);  
+
+        btnBack.setBounds(70,150,110,40); 
+        btnDeposit.setBounds(210,150,110,40);         
         LabelIdCust.setBounds(50,50,100,10);
         LabelName.setBounds(50,80,100,10);
         LabelTtlDeposit.setBounds(50,110,100,10);
@@ -57,6 +60,7 @@ public class ViewDeposit extends JFrame implements DepositImp{
         jtfTtlDeposit.setBounds(130,105,200,20);
         
         base2.add(btnDeposit);
+        base2.add(btnBack);
         base2.add(LabelName);
         base2.add(LabelIdCust);
         base2.add(LabelTtlDeposit);
@@ -131,5 +135,18 @@ public class ViewDeposit extends JFrame implements DepositImp{
             Logger.getLogger(ViewDeposit.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+
+    private void Back() {
+        btnBack.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                ViewSaldo saldo;
+                saldo = new ViewSaldo(); 
+                saldo.setVisible(true);
+                setVisible(false); 
+                }
+            }
+        );
     }
 }
