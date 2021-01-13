@@ -6,13 +6,13 @@
 package id.banksampah.app.core;
 
 import id.banksampah.app.model.Deposit;
-import id.banksampah.app.model.Withdraw;
 
 /**
  *
  * @author Asus
  */
-public interface SaldoImp {
-    public boolean insertDeposit(Deposit deposit);
-    public Boolean insertWithdraw(Withdraw withdraw);
+public interface DepositImp {
+    public boolean checkDeposit(String IdCustomer); // mengecek akun berdasarkan nama
+
+    public boolean functionInsert(Deposit deposit);// memasukkan data     
 }
