@@ -5,9 +5,8 @@
  */
 package id.banksampah.app.view;
 
-import id.banksampah.app.core.AccountImpNasabah;
 import id.banksampah.app.core.config.MySQL;
-import id.banksampah.app.model.Nasabah;
+import id.banksampah.app.model.Costumer;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -17,12 +16,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import id.banksampah.app.core.AccountImpCostumer;
 
 /**
  *
  * @author M WAFIYUL AHDI
  */
-public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah {
+public class viewRegistrationCostumer extends JFrame implements AccountImpCostumer {
 
     //deklarasi komponen jlabel, jtextfield, dan jbutton
     private JLabel labelNama = new JLabel("Username: ");
@@ -33,12 +33,13 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
     private JTextField textPass = new JTextField(20);
     private JButton registrasi = new JButton("Daftar");
     private JButton pengepul = new JButton("Pengepul");
+     private JButton login = new JButton("Login");
 
     protected String nama, email, pass;
-    Nasabah nasabah;
+    Costumer nasabah;
 
     // membuat fungsi 
-    public viewRegistrationNasabah() {
+    public viewRegistrationCostumer() {
         super("Form Registrasi");
         // instansiasi jpanel menggunakan gridbaglayout untuk memudahkan tata letak komponen
         initView();
@@ -87,6 +88,12 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.EAST;
         newPanel.add(pengepul, constraints);
+        
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        constraints.gridwidth = 2;
+        constraints.anchor = GridBagConstraints.WEST;
+        newPanel.add(login, constraints);
 
         // membuat border dan label pada border
         newPanel.setBorder(BorderFactory.createTitledBorder(
@@ -108,7 +115,7 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
                 pass = textPass.getText().toString();
 
                 if (!nama.equals("") && !email.equals("") && !pass.equals("")) {
-                    nasabah = new Nasabah();
+                    nasabah = new Costumer();
                     nasabah.setNama(nama);
                     nasabah.setEmail(email);
                     nasabah.setPass(pass);
@@ -116,8 +123,9 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
                         if (!checkAccountNasabah(email)) {
                             functionInsert(nasabah);
                             JOptionPane.showMessageDialog(null, "Registrasi Berhasil");
-                        } else
+                        } else {
                             JOptionPane.showMessageDialog(null, "email sudah digunakan");
+                        }
 
                     } catch (Exception exception) {
                         exception.printStackTrace();
@@ -132,8 +140,8 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
         pengepul.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                viewRegistrationPengepul xx;
-                xx = new viewRegistrationPengepul();
+                viewRegistrationCollector xx;
+                xx = new viewRegistrationCollector();
                 xx.setVisible(true);
                 setVisible(false);
             }
@@ -151,21 +159,21 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
             preparedStmt.setString(1, email);
 
             ResultSet result = preparedStmt.executeQuery();
-            
+
             if (result.next()) {
                 return true;
             }
-            
-            return false;            
-            
+
+            return false;
+
         } catch (SQLException ex) {
-            Logger.getLogger(viewRegistrationNasabah.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(viewRegistrationCostumer.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
 
     @Override
-    public boolean functionInsert(Nasabah nasabah) {
+    public boolean functionInsert(Costumer nasabah) {
         try {
             String query = " INSERT INTO `nasabah`(`nama`, `email`, `password`) VALUES (?,?,?)";
             Connection connection = new MySQL().createConnection();
@@ -177,7 +185,7 @@ public class viewRegistrationNasabah extends JFrame implements AccountImpNasabah
             preparedStmt.execute();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(viewRegistrationNasabah.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(viewRegistrationCostumer.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }

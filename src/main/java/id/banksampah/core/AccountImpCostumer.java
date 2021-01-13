@@ -5,19 +5,17 @@
  */
 package id.banksampah.app.core;
 
-import id.banksampah.app.model.Nasabah;
-
+import id.banksampah.app.model.Costumer;
 
 /**
  *
  * @author M WAFIYUL AHDI
  */
-public interface AccountImpNasabah {
+public interface AccountImpCostumer {
     // fungsi interface yang diterapkan pada accountservice sehingga muncul override
 
     public boolean checkAccountNasabah(String email); // mengecek akun berdasarkan email
 
-    public boolean functionInsert(Nasabah nasabah);// memasukkan data pada nasabah
-    
-    
+    public boolean functionInsert(Costumer nasabah);// memasukkan data pada nasabah
+
 }

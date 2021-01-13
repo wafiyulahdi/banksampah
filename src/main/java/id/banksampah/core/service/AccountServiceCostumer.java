@@ -5,25 +5,27 @@
  */
 package id.banksampah.app.service;
 
-import id.banksampah.app.core.AccountImpPengepul;
-import id.banksampah.app.core.config.Service;
-import id.banksampah.app.model.Pengepul;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import id.banksampah.app.core.config.Service;
+import id.banksampah.app.model.Costumer;
+import id.banksampah.app.core.AccountImpCostumer;
 
 /**
  *
  * @author M WAFIYUL AHDI
  */
-public class AccountServicePengepul extends Service implements AccountImpPengepul  {
+public class AccountServiceCostumer extends Service implements AccountImpCostumer { // mlekukan inheritance dari service dan interface dari accountimp
+
+    // Nasabah
     @Override
-    public boolean checkAccountPengepul(String email) {
+    public boolean checkAccountNasabah(String email) { // menge cek akun berdasarkan email
         try {
-            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM pengepul WHERE email = ?"); //queery yang akan dieksekusi
+            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM nasabah WHERE email = ?"); //queery yang akan dieksekusi
             stmt.setString(1, email);
 
             ResultSet result = stmt.executeQuery(); // eksekusi querry
@@ -34,15 +36,15 @@ public class AccountServicePengepul extends Service implements AccountImpPengepu
 
             return false;
         } catch (SQLException ex) {
-            Logger.getLogger(AccountServiceNasabah.class.getName()).log(Level.SEVERE, null, ex); // menginformsikan aktifitas sistem
+            Logger.getLogger(AccountServiceCostumer.class.getName()).log(Level.SEVERE, null, ex); // menginformsikan aktifitas sistem
             return false;
         }
     }
 
     @Override
-    public boolean functionInsert(Pengepul pengepul) {
-        String sql = "INSERT INTO `pengepul` (`nama`, `email`, `telp`, `alamat`, `password`) VALUES ('%s', '%s', '%s', '%s', '%s')";// querry yang akan dieksekusi
-        sql = String.format(sql, pengepul.getNama(), pengepul.getEmail(), pengepul.getTelp(), pengepul.getAlamat(), pengepul.getPass()); // mengambil nilai dari variable
+    public boolean functionInsert(Costumer nasabah) { // fungsi untuk memasukkan data
+        String sql = "INSERT INTO `nasabah` (`nama`, `email`, `password`) VALUES ('%s', '%s', '%s')";// querry yang akan dieksekusi
+        sql = String.format(sql, nasabah.getNama(), nasabah.getEmail(), nasabah.getPass()); // mengambil nilai dari variable
 
         try {
             Statement stmt = this.connection.createStatement();
@@ -55,4 +57,5 @@ public class AccountServicePengepul extends Service implements AccountImpPengepu
             return false;
         }
     }
+
 }

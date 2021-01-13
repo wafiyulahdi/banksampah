@@ -5,16 +5,16 @@
  */
 package id.banksampah.app.core;
 
-import id.banksampah.app.model.Pengepul;
+import id.banksampah.app.model.Collector;
 
 /**
  *
  * @author M WAFIYUL AHDI
  */
-public interface AccountImpPengepul {
+public interface AccountImpCollector {
    
     
     public boolean checkAccountPengepul(String email);
 
-    public boolean functionInsert(Pengepul pengepul);
+    public boolean functionInsert(Collector pengepul);
 }
