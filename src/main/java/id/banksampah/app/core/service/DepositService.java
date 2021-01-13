@@ -4,10 +4,14 @@
  * and open the template in the editor.
  */
 package id.banksampah.app.service;
-
-import id.banksampah.app.core.AccountImpPengepul;
 import id.banksampah.app.core.config.Service;
-import id.banksampah.app.model.Pengepul;
+import id.banksampah.app.core.DepositImp;
+import id.banksampah.app.core.config.ConfigurationDatabase;
+import id.banksampah.app.model.Deposit;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,16 +19,18 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /**
  *
- * @author M WAFIYUL AHDI
+ * @author Asus
  */
-public class AccountServicePengepul extends Service implements AccountImpPengepul  {
+public class DepositService extends Service implements DepositImp{
+
     @Override
-    public boolean checkAccountPengepul(String email) {
+    public boolean checkDeposit(String IdCustomer) {
         try {
-            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM pengepul WHERE email = ?"); //queery yang akan dieksekusi
-            stmt.setString(1, email);
+            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM deposit WHERE IdCustomer = ?"); //queery yang akan dieksekusi
+            stmt.setString(1, IdCustomer); 
 
             ResultSet result = stmt.executeQuery(); // eksekusi querry
 
@@ -34,15 +40,15 @@ public class AccountServicePengepul extends Service implements AccountImpPengepu
 
             return false;
         } catch (SQLException ex) {
-            Logger.getLogger(AccountServiceNasabah.class.getName()).log(Level.SEVERE, null, ex); // menginformsikan aktifitas sistem
+            Logger.getLogger(DepositService.class.getName()).log(Level.SEVERE, null, ex); // menginformsikan aktifitas sistem
             return false;
         }
     }
 
     @Override
-    public boolean functionInsert(Pengepul pengepul) {
-        String sql = "INSERT INTO `pengepul` (`nama`, `email`, `telp`, `alamat`, `password`) VALUES ('%s', '%s', '%s', '%s', '%s')";// querry yang akan dieksekusi
-        sql = String.format(sql, pengepul.getNama(), pengepul.getEmail(), pengepul.getTelp(), pengepul.getAlamat(), pengepul.getPass()); // mengambil nilai dari variable
+    public boolean functionInsert(Deposit deposit) {
+        String sql = "INSERT INTO `deposit` (`IdCustomer`, `Name`, 'TotalDeposit') VALUES ('%s', '%s', '%d')";// querry yang akan dieksekusi
+        sql = String.format(sql, deposit.getIdCustomer(), deposit.getName(), deposit.getTotalDeposit()); // mengambil nilai dari variable
 
         try {
             Statement stmt = this.connection.createStatement();
@@ -53,6 +59,6 @@ public class AccountServicePengepul extends Service implements AccountImpPengepu
         } catch (Exception e) { // pesan error saat fungsi insert gagal dilakukan
             System.out.println(e);
             return false;
-        }
-    }
+        } 
+    }    
 }

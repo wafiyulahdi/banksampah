@@ -9,12 +9,13 @@ package id.banksampah.app.model;
  *
  * @author M WAFIYUL AHDI
  */
-public class Nasabah {
+public class Collector {
 
     private String nama;
     private String email;
+    private String telp;
+    private String alamat;
     private String pass;
-    //deklarasi variable dengan modifier private agar hanya dapat diakses class itu sendiri.
 
     public String getNama() {
         return nama;
@@ -32,6 +33,22 @@ public class Nasabah {
         this.email = email;
     }
 
+    public String getTelp() {
+        return telp;
+    }
+
+    public void setTelp(String telp) {
+        this.telp = telp;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
     public String getPass() {
         return pass;
     }
@@ -39,6 +56,4 @@ public class Nasabah {
     public void setPass(String pass) {
         this.pass = pass;
     }
-    //mengambil dan mengisi data dalam model
-
 }

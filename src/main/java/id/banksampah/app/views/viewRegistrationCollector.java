@@ -6,8 +6,7 @@
 package id.banksampah.app.view;
 
 import id.banksampah.app.core.config.MySQL;
-import id.banksampah.app.core.AccountImpPengepul;
-import id.banksampah.app.model.Pengepul;
+import id.banksampah.app.model.Collector;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,12 +17,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import id.banksampah.app.core.AccountImpCollector;
 
 /**
  *
  * @author M WAFIYUL AHDI
  */
-public class viewRegistrationPengepul extends JFrame implements AccountImpPengepul {
+public class viewRegistrationCollector extends JFrame implements AccountImpCollector {
 
     private JLabel labelNama = new JLabel("Enter username: ");
     private JLabel labelEmail = new JLabel("Enter Email: ");
@@ -36,15 +36,17 @@ public class viewRegistrationPengepul extends JFrame implements AccountImpPengep
     private JTextField textAlamat = new JTextField(20);
     private JTextField textPass = new JTextField(20);
     private JButton registrasi = new JButton("Daftar");
+    private JButton nasabah = new JButton("Nasabah");
 
     protected String nama, email, telp, alamat, pass;
-    Pengepul pengepul;
+    Collector pengepul;
 
-    public viewRegistrationPengepul() {
+    public viewRegistrationCollector() {
         super("Form Registrasi");
 
         initView();
         regis();
+        toNasabah();
 
     }
 
@@ -97,6 +99,12 @@ public class viewRegistrationPengepul extends JFrame implements AccountImpPengep
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
         newPanel.add(registrasi, constraints);
+        
+        constraints.gridx = 0;
+        constraints.gridy = 5;
+        constraints.gridwidth = 3;
+        constraints.anchor = GridBagConstraints.EAST;
+        newPanel.add(nasabah, constraints);
 
         newPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Registration Pengepul"));
@@ -119,18 +127,19 @@ public class viewRegistrationPengepul extends JFrame implements AccountImpPengep
                 pass = textPass.getText().toString();
 
                 if (!nama.equals("") && !email.equals("") && !pass.equals("")) {
-                    pengepul = new Pengepul();
+                    pengepul = new Collector();
                     pengepul.setNama(nama);
                     pengepul.setEmail(email);
                     pengepul.setTelp(telp);
                     pengepul.setAlamat(alamat);
                     pengepul.setPass(pass);
                     try {
-                         if (!checkAccountPengepul(email)) {
+                        if (!checkAccountPengepul(email)) {
                             functionInsert(pengepul);
                             JOptionPane.showMessageDialog(null, "Registrasi Berhasil");
-                        } else
+                        } else {
                             JOptionPane.showMessageDialog(null, "email sudah digunakan");
+                        }
                     } catch (Exception exception) {
                         exception.printStackTrace();
                     }
@@ -138,6 +147,20 @@ public class viewRegistrationPengepul extends JFrame implements AccountImpPengep
             }
         }
         );
+    }
+    
+    private void toNasabah(){
+      nasabah.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                viewRegistrationCostumer xx;
+                xx = new viewRegistrationCostumer();
+                xx.setVisible(true);
+                setVisible(false);
+            }
+
+        });
+    
     }
 
     @Override
@@ -148,21 +171,21 @@ public class viewRegistrationPengepul extends JFrame implements AccountImpPengep
             PreparedStatement preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, email);
             ResultSet result = preparedStmt.executeQuery();
-            
+
             if (result.next()) {
                 return true;
             }
-            
+
             return false;
-            
+
         } catch (SQLException ex) {
-            Logger.getLogger(viewRegistrationNasabah.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(viewRegistrationCostumer.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
 
     @Override
-    public boolean functionInsert(Pengepul pengepul) {
+    public boolean functionInsert(Collector pengepul) {
         try {
             String query = " INSERT INTO `pengepul`(`nama`, `email`, `telp`, `alamat`, `password`) VALUES (?,?,?,?,?)";
             Connection connection = new MySQL().createConnection();
@@ -176,7 +199,7 @@ public class viewRegistrationPengepul extends JFrame implements AccountImpPengep
             preparedStmt.execute();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(viewRegistrationNasabah.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(viewRegistrationCostumer.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }

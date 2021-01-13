@@ -9,7 +9,7 @@ import id.banksampah.app.model.Pengepul;
 
 /**
  *
- * @author M WAFIYUL AHDI
+ *
  */
 public interface AccountImpPengepul {
    
