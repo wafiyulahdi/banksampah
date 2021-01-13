@@ -6,6 +6,8 @@
 package id.banksampah.app.view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
@@ -22,7 +24,9 @@ public class Dashboard extends JFrame {
         super("Dashboard");
 
         initView();
-
+        toChat();
+        toSaldo();
+        
     }
 
     private void initView() {
@@ -59,6 +63,31 @@ public class Dashboard extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
+    }
+    
+    private void toChat(){
+    chat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JOptionPane.showMessageDialog(null, "Mohon maaf, fitur ini belum tersedia !");
+            }
+
+        });
+    
+    }
+    
+    private void toSaldo(){
+    saldo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                ViewSaldo xx;
+                xx = new ViewSaldo();
+                xx.setVisible(true);
+                setVisible(false);
+            }
+
+        });
+    
     }
 
     public static void main(String[] args) {
