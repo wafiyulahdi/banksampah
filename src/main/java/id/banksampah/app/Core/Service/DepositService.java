@@ -6,7 +6,7 @@
 package id.banksampah.app.service;
 import id.banksampah.app.core.config.Service;
 import id.banksampah.app.core.DepositImp;
-import id.banksampah.app.core.config.ConfigDatabase;
+import id.banksampah.app.core.config.ConfigurationDatabase;
 import id.banksampah.app.model.Deposit;
 
 import java.util.logging.Level;
@@ -27,10 +27,10 @@ import java.util.logging.Logger;
 public class DepositService extends Service implements DepositImp{
 
     @Override
-    public boolean checkDeposit(String name) {
+    public boolean checkDeposit(String IdCustomer) {
         try {
-            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM nasabah WHERE name = ?"); //queery yang akan dieksekusi
-            stmt.setString(1, name); 
+            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM deposit WHERE IdCustomer = ?"); //queery yang akan dieksekusi
+            stmt.setString(1, IdCustomer); 
 
             ResultSet result = stmt.executeQuery(); // eksekusi querry
 
@@ -47,7 +47,7 @@ public class DepositService extends Service implements DepositImp{
 
     @Override
     public boolean functionInsert(Deposit deposit) {
-        String sql = "INSERT INTO `deposit` (`IdCustomer`, `nama`, 'totalDeposit') VALUES ('%d', '%s', '%d')";// querry yang akan dieksekusi
+        String sql = "INSERT INTO `deposit` (`IdCustomer`, `Name`, 'TotalDeposit') VALUES ('%s', '%s', '%d')";// querry yang akan dieksekusi
         sql = String.format(sql, deposit.getIdCustomer(), deposit.getName(), deposit.getTotalDeposit()); // mengambil nilai dari variable
 
         try {

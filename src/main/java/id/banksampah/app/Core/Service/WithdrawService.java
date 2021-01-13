@@ -24,7 +24,7 @@ public class WithdrawService extends Service implements WithdrawImp{
 
     @Override
     public boolean functionInsert(Withdraw withdraw) {
-        String sql = "INSERT INTO `withdraw` (`IdCustomer`, `nama`, 'totalWithdraw') VALUES ('%d', '%s', '%d')";// querry yang akan dieksekusi
+        String sql = "INSERT INTO `withdraw` (`IdCustomer`, `Name`, 'TotalWithdraw') VALUES ('%s', '%s', '%d')";// querry yang akan dieksekusi
         sql = String.format(sql, withdraw.getIdCustomer(), withdraw.getName(), withdraw.getTotalWithdraw()); // mengambil nilai dari variable
 
         try {
@@ -40,10 +40,10 @@ public class WithdrawService extends Service implements WithdrawImp{
     }
 
     @Override
-    public boolean checkWithdraw(String name) {
+    public boolean checkWithdraw(String IdCustomer) {
         try {
-            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM nasabah WHERE name = ?"); //queery yang akan dieksekusi
-            stmt.setString(1, name); 
+            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM withdraw WHERE IdCustomer = ?"); //queery yang akan dieksekusi
+            stmt.setString(1, IdCustomer); 
 
             ResultSet result = stmt.executeQuery(); // eksekusi querry
 
