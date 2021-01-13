@@ -10,31 +10,31 @@ package id.banksampah.app.model;
  * @author Asus
  */
 public class Withdraw {
-    public String IdCustomer;
-    public String name;
-    public int totalWithdraw;
+    private String IdCustomer;
+    private String Name;
+    private int TotalWithdraw;
     
     public String getIdCustomer() {
         return IdCustomer; 
     }
     
-    public void setIdNasabah(String IdCustomer) {
+    public void setIdCustomer(String IdCustomer) {
         this.IdCustomer = IdCustomer; 
     }
     
     public String getName() {
-        return name;
+        return Name;
     }
     
-    public void setNama(String name) {
-        this.name = name;
+    public void setName(String Name) {
+        this.Name = Name;
     }
     
     public int getTotalWithdraw() {
-        return totalWithdraw;
+        return TotalWithdraw;
     }
     
-    public void setJmlPenarikan(int totalWithdraw) {
-        this.totalWithdraw = totalWithdraw;
+    public void setTotalWithdraw(int TotalWithdraw) {
+        this.TotalWithdraw = TotalWithdraw;
     }
 }

@@ -10,31 +10,31 @@ package id.banksampah.app.model;
  * @author Asus
  */
 public class Deposit {
-    public String IdCustomer;
-    public String name;
-    public int totalDeposit;
+    private String IdCustomer;
+    private String Name;
+    private int TotalDeposit;
     
     public String getIdCustomer() {
         return IdCustomer; 
     }
     
-    public void setIdNasabah(String IdCustomer) {
+    public void setIdCustomer(String IdCustomer) {
         this.IdCustomer = IdCustomer; 
     }
     
     public String getName() {
-        return name;
+        return Name;
     }
     
-    public void setNama(String name) {
-        this.name = name;
+    public void setName(String Name) {
+        this.Name = Name;
     }
     
     public int getTotalDeposit() {
-        return totalDeposit;
+        return TotalDeposit;
     }
     
-    public void setTotalDeposit(int totalDeposit) {
-        this.totalDeposit = totalDeposit;
+    public void setTotalDeposit(int TotalDeposit) {
+        this.TotalDeposit = TotalDeposit;
     }
 }
