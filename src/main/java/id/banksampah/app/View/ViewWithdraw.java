@@ -89,7 +89,7 @@ public class ViewWithdraw extends JFrame implements WithdrawImp {
                     Withdraw.setName(Name);
                     Withdraw.setTotalWithdraw(TotalWithdraw);
                     try {
-                        if (checkWithdraw(Name)) {
+                        if (!checkWithdraw(IdCustomer)) {
                             functionInsert(Withdraw);
                             JOptionPane.showMessageDialog(null, "input is successful");
                         } else
@@ -105,12 +105,12 @@ public class ViewWithdraw extends JFrame implements WithdrawImp {
     }
 
     @Override
-    public boolean checkWithdraw(String name) {
-        String query = " SELECT * FROM saldo WHERE IdCustomer like ?";
+    public boolean checkWithdraw(String IdCustomer) {
+        String query = " SELECT * FROM withdraw WHERE IdCustomer like ?";
         Connection connection = new MySQL().createConnection();
         try {
             PreparedStatement preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setString(1, Withdraw.getName());
+            preparedStmt.setString(1, Withdraw.getIdCustomer());
             preparedStmt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(ViewWithdraw.class.getName()).log(Level.SEVERE, null, ex);
@@ -121,7 +121,7 @@ public class ViewWithdraw extends JFrame implements WithdrawImp {
     @Override
     public boolean functionInsert(Withdraw withdraw) {
         try {
-            String query = " INSERT INTO `saldo`(`IdCustomer`, `nama`, `totalWithdraw`) VALUES (?,?,?)";
+            String query = " INSERT INTO `withdraw`(`IdCustomer`, `Name`, `TotalWithdraw`) VALUES (?,?,?)";
             Connection connection = new MySQL().createConnection();
 
             PreparedStatement preparedStmt = connection.prepareStatement(query);

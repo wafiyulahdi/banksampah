@@ -91,12 +91,11 @@ public class ViewDeposit extends JFrame implements DepositImp{
                     Deposit.setName(Name);
                     Deposit.setTotalDeposit(TotalDeposit);
                     try {
-                        if (checkDeposit(Name)) {
+                        if (!checkDeposit(Name)) {
                             functionInsert(Deposit);
                             JOptionPane.showMessageDialog(null, "input is successful");
                         } else
                             JOptionPane.showMessageDialog(null, "");
-
                     } catch (Exception exception) {
                         exception.printStackTrace();
                     }
@@ -106,12 +105,12 @@ public class ViewDeposit extends JFrame implements DepositImp{
         );
     }
     @Override
-    public boolean checkDeposit(String name) {
-        String query = " SELECT * FROM saldo WHERE IdCustomer like ?";
+    public boolean checkDeposit(String IdCustomer) {
+        String query = " SELECT * FROM deposit WHERE IdCustomer like ?";
         Connection connection = new MySQL().createConnection();
         try {
             PreparedStatement preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setString(1, Deposit.getName());
+            preparedStmt.setString(1, Deposit.getIdCustomer());
             preparedStmt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(ViewDeposit.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,7 +121,7 @@ public class ViewDeposit extends JFrame implements DepositImp{
     @Override
     public boolean functionInsert(Deposit deposit) {
         try {
-            String query = " INSERT INTO `saldo`(`IdCustomer`, `nama`, `totalDeposit`) VALUES (?,?,?)";
+            String query = " INSERT INTO `deposit`(`IdCustomer`, `Name`, `TotalDeposit`) VALUES (?,?,?)";
             Connection connection = new MySQL().createConnection();
 
             PreparedStatement preparedStmt = connection.prepareStatement(query);
